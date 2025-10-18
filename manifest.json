@@ -1,6 +1,6 @@
 {
 	"dependencies": [],
-	"description": "Add a menu to the interface listing installed mods",
+	"description": "Add a menu to the interface listing installed mods.",
 	"extra": {
 		"godot": {
 			"authors": [
@@ -13,7 +13,7 @@
 				"7.0.1"
 			],
 			"config_schema": {},
-			"description_rich": "Add a menu to the interface listing installed mods",
+			"description_rich": "Add a menu to the interface listing installed mods.",
 			"image": null,
 			"incompatibilities": [],
 			"load_before": [],
