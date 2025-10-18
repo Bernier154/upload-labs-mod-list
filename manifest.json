@@ -1,0 +1,31 @@
+{
+	"dependencies": [],
+	"description": "Add a menu to the interface listing installed mods",
+	"extra": {
+		"godot": {
+			"authors": [
+				"Bernier154"
+			],
+			"compatible_game_version": [
+				"1.0.12"
+			],
+			"compatible_mod_loader_version": [
+				"7.0.1"
+			],
+			"config_schema": {},
+			"description_rich": "Add a menu to the interface listing installed mods",
+			"image": null,
+			"incompatibilities": [],
+			"load_before": [],
+			"optional_dependencies": [],
+			"tags": [
+				"modloader",
+				"list"
+			]
+		}
+	},
+	"name": "mod_list",
+	"namespace": "bernier154",
+	"version_number": "0.0.1",
+	"website_url": "https://github.com/Bernier154/upload-labs-mod-list"
+}

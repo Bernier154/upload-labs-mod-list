@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://vcrhdp1ksis1"]
+
+[ext_resource type="Texture2D" uid="uid://bx4dd2w1o4i1" path="res://textures/icons/incognito.png" id="1_ejir1"]
+
+[node name="ModList" type="Button"]
+custom_minimum_size = Vector2(80, 80)
+size_flags_horizontal = 6
+size_flags_vertical = 4
+focus_mode = 0
+theme_type_variation = &"ButtonMenu"
+toggle_mode = true
+icon = ExtResource("1_ejir1")
+icon_alignment = 1
+expand_icon = true
