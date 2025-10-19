@@ -42,16 +42,18 @@ jobs:
         run: |
           VERSION=${{ steps.manifest.outputs.version }}
           ZIP_NAME=${{ steps.manifest.outputs.zip_name }}
+          NAMESPACE=${{ steps.manifest.outputs.namespace }}
           echo "Creating zip for version v$VERSION"
 
-          mkdir -p release mods_unpacked
-          # Copy everything except excluded items into mods_unpacked/
+          mkdir -p release/mods_unpacked/$NAMESPACE
+          
           rsync -av --exclude='.git' \
                     --exclude='.github' \
                     --exclude='.vscode' \
                     --exclude='.gitignore' \
                     --exclude='release' \
-                    ./ mods_unpacked/
+                    --exclude='mods_unpacked' \
+                    ./ mods_unpacked/$NAMESPACE
 
           # Create the zip containing the mods_unpacked folder
           zip -r "release/$ZIP_NAME" mods_unpacked
