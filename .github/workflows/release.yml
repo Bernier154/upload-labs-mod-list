@@ -43,7 +43,7 @@ jobs:
           VERSION=${{ steps.manifest.outputs.version }}
           echo "Creating zip for version v$VERSION"
           mkdir release
-          zip -r "release/${{ steps.manifest.outputs.zip_name }} . \
+          zip -r "release/${{ steps.manifest.outputs.zip_name }}" . \
             -x ".git/*" \
                ".github/*" \
                ".vscode/*" \
