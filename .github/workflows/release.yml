@@ -49,7 +49,7 @@ jobs:
                ".vscode/*" \
                ".gitignore" \
                "release/*"
-          echo "zip_path=release/$ZIP_NAME" >> $GITHUB_OUTPUT
+          echo "zip_path=release/${{ steps.manifest.outputs.zip_name }}" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Create GitHub Release
