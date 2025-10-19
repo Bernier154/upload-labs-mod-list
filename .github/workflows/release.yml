@@ -45,7 +45,8 @@ jobs:
           NAMESPACE=${{ steps.manifest.outputs.namespace }}
           NAME=${{ steps.manifest.outputs.name }}
           echo "Creating zip for version v$VERSION"
-
+          
+          mkdir -p release
           mkdir -p mods_unpacked
           mkdir -p mods_unpacked/$NAMESPACE-$NAME
           
