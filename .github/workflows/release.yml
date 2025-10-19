@@ -53,6 +53,8 @@ jobs:
           rsync -av --exclude='.git' \
                     --exclude='.github' \
                     --exclude='.vscode' \
+                    --exclude='image.png' \
+                    --exclude='README.md' \
                     --exclude='.gitignore' \
                     --exclude='release' \
                     --exclude='mods-unpacked' \
