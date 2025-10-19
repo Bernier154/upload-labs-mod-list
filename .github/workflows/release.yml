@@ -45,6 +45,7 @@ jobs:
           NAMESPACE=${{ steps.manifest.outputs.namespace }}
           echo "Creating zip for version v$VERSION"
 
+          mkdir -p release/mods_unpacked
           mkdir -p release/mods_unpacked/$NAMESPACE
           
           rsync -av --exclude='.git' \
