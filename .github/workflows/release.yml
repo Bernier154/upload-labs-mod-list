@@ -47,21 +47,21 @@ jobs:
           echo "Creating zip for version v$VERSION"
           
           mkdir -p release
-          mkdir -p mods_unpacked
-          mkdir -p mods_unpacked/$NAMESPACE-$NAME
+          mkdir -p mods-unpacked
+          mkdir -p mods-unpacked/$NAMESPACE-$NAME
           
           rsync -av --exclude='.git' \
                     --exclude='.github' \
                     --exclude='.vscode' \
                     --exclude='.gitignore' \
                     --exclude='release' \
-                    --exclude='mods_unpacked' \
-                    ./ mods_unpacked/$NAMESPACE-$NAME
+                    --exclude='mods-unpacked' \
+                    ./ mods-unpacked/$NAMESPACE-$NAME
 
-          # Create the zip containing the mods_unpacked folder
-          zip -r "release/$ZIP_NAME" mods_unpacked
+          # Create the zip containing the mods-unpacked folder
+          zip -r "release/$ZIP_NAME" mods-unpacked
           # Cleanup temporary folder
-          rm -rf mods_unpacked
+          rm -rf mods-unpacked
           echo "zip_path=release/$ZIP_NAME" >> $GITHUB_OUTPUT
         shell: bash
 
