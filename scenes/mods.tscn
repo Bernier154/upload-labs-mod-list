@@ -1,0 +1,118 @@
+[gd_scene load_steps=3 format=3 uid="uid://dck1040mg68aj"]
+
+[ext_resource type="Texture2D" uid="uid://cwaaiy2h4uisf" path="res://textures/icons/cog.png" id="1_iwkxw"]
+[ext_resource type="Script" uid="uid://413rfqmhxgo7" path="res://mods-unpacked/bernier154-mod_list/scenes/mods.gd" id="2_iwkxw"]
+
+[node name="Mods" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"ShadowPanelContainer"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TitlePanel" type="Panel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_type_variation = &"OverlayPanelTitle"
+
+[node name="TitleContainer" type="HBoxContainer" parent="VBoxContainer/TitlePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = -15.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/TitlePanel/TitleContainer"]
+self_modulate = Color(0.567, 0.69465, 0.9, 1)
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_iwkxw")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/TitlePanel/TitleContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Godot Modloader modlist"
+
+[node name="Mods" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"MenuPanel"
+script = ExtResource("2_iwkxw")
+
+[node name="Modpanel" type="VBoxContainer" parent="VBoxContainer/Mods"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Mods/Modpanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Mods/Modpanel/MarginContainer"]
+layout_mode = 2
+
+[node name="DirtyNotice" type="Label" parent="VBoxContainer/Mods/Modpanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.627451, 0.776471, 0.811765, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 24
+text = "Activate and deactivate mod loading here. All changes
+made here will be reflected on next game lauch."
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Mods/Modpanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ModsContainer" type="VBoxContainer" parent="VBoxContainer/Mods/Modpanel/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="modItem" type="HBoxContainer" parent="VBoxContainer/Mods/Modpanel/MarginContainer/VBoxContainer/ScrollContainer/ModsContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Mods/Modpanel/MarginContainer/VBoxContainer/ScrollContainer/ModsContainer/modItem"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "Modname (v0.0.1)"
+
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer/Mods/Modpanel/MarginContainer/VBoxContainer/ScrollContainer/ModsContainer/modItem"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+focus_mode = 0
+flat = true
+
+[node name="Version" type="Label" parent="VBoxContainer/Mods/Modpanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.627451, 0.776471, 0.811765, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 24
+text = "Version 0.0.1"
+horizontal_alignment = 1
+vertical_alignment = 1

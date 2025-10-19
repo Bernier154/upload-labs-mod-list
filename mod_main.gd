@@ -1,70 +1,41 @@
 extends Node
 
-const MOD_DIR := "bernier154-mod_list"
-const LOG_NAME := "bernier154-mod_list:Main" # Full ID of the mod (AuthorName-ModName)
-
-const screenIndex := 3
-
-var ModListScene : PackedScene
-var ModlistScreenScene : PackedScene
-var ModListButton : Node
-var Main2DContainer : Node
-var MainContainer : Node
-var ModlistScreen : Node
-
-var mod_dir_path := ""
-var translations_dir_path := ""
+var mod_dir_path := ModLoaderMod.get_unpacked_dir().path_join('bernier154-mod_list')
+var modlistTabIndex := -1
 
 func _init() -> void:
-	mod_dir_path = ModLoaderMod.get_unpacked_dir().path_join(MOD_DIR)
-	ModListScene = load(mod_dir_path.path_join('scenes/ModList.tscn'))
-	ModlistScreenScene = load(mod_dir_path.path_join('scenes/ModlistScreen.tscn'))
+	setup_modloader_profile()
 
 func _ready() -> void:
-	ModLoaderLog.info("Ready", LOG_NAME)
-	get_tree().root.child_entered_tree.connect(child_entered_tree)
+	_wait_for_main_scene()
+	
+func setup_modloader_profile():
+	var modloader_modlist_profile = ModLoaderUserProfile.get_profile('modlist')
+	if modloader_modlist_profile == null:
+		ModLoaderUserProfile.create_profile('modlist')
+		modloader_modlist_profile = ModLoaderUserProfile.get_profile('modlist')
+	if ModLoaderUserProfile.get_current().name != modloader_modlist_profile.name:
+		ModLoaderUserProfile.set_profile(modloader_modlist_profile)
+	
+func _wait_for_main_scene():
+	get_tree().root.child_entered_tree.connect(_child_entered_tree_watcher)
 
-func child_entered_tree(node: Node):
-	print(node.name)
+func _child_entered_tree_watcher(node: Node):
 	if(node.name == 'Main'):
-		ModLoaderLog.info("Found Main scene, injecting modlist menu", LOG_NAME)
-		inject(node)
-	
+		_injectModlistScene(node)
 
-func inject(node: Node):
-	Main2DContainer = node.get_node('Main2D');
-	MainContainer = node.get_node('HUD/Main/MainContainer/Overlay/ScreenButtons/Container')
+func _injectModlistScene(node: Node):
+	var ModlistPanel = load(mod_dir_path.path_join('scenes/mods.tscn')).instantiate()
+	ModlistPanel.visible = false
 	
-	ModlistScreen = ModlistScreenScene.instantiate()
-	ModListButton = ModListScene.instantiate();
+	var ModListButton = load(mod_dir_path.path_join('scenes/button.tscn')).instantiate();
+	ModListButton.pressed.connect(_on_modlist_button_pressed)
 	
-	_injectScreenData(Main2DContainer)
+	modlistTabIndex = get_node('/root/Main/HUD/Main/MainContainer/Overlay/Menus').get_child_count()
+	get_node('/root/Main/HUD/Main/MainContainer/Overlay/Menus').add_child(ModlistPanel)
 	
-	ModlistScreen.visible = false
+	get_node('/root/Main/HUD/Main/MainContainer/Overlay/ExtrasButtons/Container').add_child(ModListButton, true)
 	
-	MainContainer.add_child(ModListButton, true)
-	Main2DContainer.add_child(ModlistScreen)
 	
-	Signals.set_screen.connect(_set_screen_handler)
-	ModListButton.pressed.connect(_on_modlist_pressed)
-
-	
-func _set_screen_handler(screenNum,cameraCallback):
-	if screenNum != screenIndex :
-		ModListButton.button_pressed = false
-	ModlistScreen.visible = screenNum == screenIndex
-
-func _injectScreenData(main2D: Node):
-	main2D.screen_position.append( Vector2(0, 0))
-	main2D.screen_zoom.append(Vector2(1, 1))
-	main2D.screen_size.append(1000)
-	main2D.screen_min_zoom.append( Vector2(0.5, 0.5))
-
-func _on_modlist_pressed() -> void :
-	if Globals.cur_screen != screenIndex:
-		Signals.set_screen.emit(screenIndex, Globals.camera_center)
-		MainContainer.get_node('Research').button_pressed = false
-		MainContainer.get_node('Desktop').button_pressed = false
-	MainContainer.get_node('ModList').button_pressed = true
-	
-	Sound.play("click_toggle")
+func _on_modlist_button_pressed():
+	get_node('/root/Main/HUD').set_menu(Utils.menu_types.SIDE,modlistTabIndex, true)
